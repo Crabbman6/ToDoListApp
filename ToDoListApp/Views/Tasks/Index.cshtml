@@ -1,0 +1,49 @@
+﻿@* Index.cshtml *@
+@using ToDoListApp.Models
+@model IEnumerable<TaskTodo>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mt-4">To-do List</h1>
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th> <!-- Changed from 'Tasks' to 'Description' -->
+                                <th>Remove?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var task in Model)
+                            {
+                                <tr>
+                                    <td>@task.Title</td>
+                                    <td>@task.Description</td> 
+                                    <td>
+                                        <form asp-action="/Tasks/Delete" method="post" onsubmit="console.log('Form Submitted')">
+                                            <input type="hidden" name="Id" value="@task.Id" />
+                                            <input type="submit" value="Remove" class="btn btn-danger btn-sm" />
+                                        </form>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="/Tasks/Create" class="btn btn-primary">Create New Task</a>
+            </div>
+        </div>
+    </div>
+</div>
